@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/main.js"></script>
+    <link rel="StyleSheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Exa&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Monkas</title>
+</head>
+
+<body>
+    <img id="flyImage" src="img/fly.png" class="hide">
+    <img id="beeImage" src="img/bee.png" class="hide">
+    <img id="fireflyImage" src="img/firefly.png" class="hide">
+
+
+    <section id="home" class="section">
+        <div>
+            <img id="game-title" src="img/title-froggy.png" alt="Game title">
+            <img id="btn-1" src="img/start-button.png" alt="Start button" onclick="goRules()">
+            <img id="btn-2" src="img/credits-button.png" alt="Credits button" onclick="goCredits()">
+        </div>
+        
+    </section>
+
+    <section id="game" class="section hide" onclick="touch()">
+        <canvas id="myCanvas" width="720" height="1280"></canvas>
+        <div id="div1">
+            <span>
+                <span><img id="watch-icon" src="img/icon-watch.png" alt="Reloj"></span>
+                <span id="timer">01:00</span>
+                <span><img id="insect-icon" src="img/icon-insect.png" alt="Insect"></span>
+                <span id="points">000</span>
+            </span>
+        </div>
+        <img src="img/frog.png " alt="Image" id="monkas">
+        <button id="btn-0" onclick="goHome()">HOME</button>
+        <div id="pause-div">
+            <img id="pause-button" src="img/icon-pause.png" alt="Pause" onclick="pause()">
+        </div>
+    </section>
+
+    <section id="credits" class="section hide">
+        <button onclick="goHome()">HOME</button>
+    </section>
+
+    <section id="rules" class="section hide">
+        <div id="rule-1" class="rules-div" onclick="changeRule(2)">
+            <img src="img/rule1.png">
+        </div>
+        <div id="rule-2" class="rules-div hide" onclick="changeRule(3)">
+            <img src="img/rule2.png">
+        </div>
+        <div id="rule-3" class="rules-div hide" onclick="startGame()">
+            <img src="img/rule3.png">
+        </div>
+    </section>
+</body>
+<script>
+    rotate("monkas",20);
+    canvass("myCanvas");
+</script>
+</html>
