@@ -118,6 +118,24 @@
     margin-left: 3px;
 }
 
+#resume-button{
+    width: 40px;
+    margin-top: 3px;
+    margin-left: 3px;
+}
+
+#resume-div{
+    background-color: #F2F6E0;
+    text-align: center;
+    opacity: 0.7;
+    position: fixed;
+    width: 55px;
+    height: 55px;
+    bottom: 50px;
+    left: 47%;
+    border-radius: 3px;
+}
+
 #pause-div{
     background-color: #F2F6E0;
     opacity: 0.7;

@@ -23,9 +23,12 @@ var flies = 7; var bees = 2; var fireflies = 1;
 var xbees = []; var ybees = []; var xflies = []; var yflies = []; var xfireflies = []; var yfireflies = [];
 let points = 0;
 let highest_score = miStorage.getItem('highest_score');
-
+var clockTimer;
+var timer;
+var minutes;
+var seconds;
 var drawer;
-
+var displayClock;
 
 // window.addEventListener('touchstart', function() {
 //     if (document.getElementById("home").classList.contains("hide")) {
@@ -62,6 +65,7 @@ function startGame(){
     document.getElementById("rules").classList.add("hide");
     timer();
     drawBugs();
+    document.getElementById('monkas').click();
 }
 
 function goHome(){
@@ -131,7 +135,12 @@ function drawBall() {
 
 function pause(){
     clearInterval(drawer);
+    clearInterval(clockTimer);
     clearTimeout(looper);
+    document.getElementById('pause-button').classList.add('hide');
+    document.getElementById('resume-button').classList.remove('hide');
+    document.getElementById('myCanvas').removeAttribute('onClick');
+    document.getElementById('monkas').removeAttribute('onClick');
     ctx.beginPath();
     // DIBUJA LO QUE VA EN EL PAUSE
     ctx.closePath();
@@ -140,6 +149,11 @@ function pause(){
 function resume() {
     looper = setTimeout('rotate(\''+element+'\','+globalspeed+')',froggy_speed);
     drawer = setInterval(draw, drawer_speed); //llama a la funcion draw
+    clockTimer = setInterval(clock, 1000);
+    document.getElementById('pause-button').classList.remove('hide');
+    document.getElementById('resume-button').classList.add('hide');
+    document.getElementById('myCanvas').setAttribute('onClick','touch()');
+    document.getElementById('monkas').setAttribute('onClick','touch()');
 }
 
 function drawBugs(){
@@ -163,7 +177,7 @@ function draw() {
     for(i=0;i<current_flies.length;i++){
         if((x > xflies[i] && x < xflies[i]+40)&&(y > yflies[i] && y < yflies[i]+40)){
             // points += 10;
-            updateScore(10);
+            updateScore(5);
             // console.log("una mosca +10. Puntos: "+points);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             clearInterval(drawer);
@@ -173,7 +187,7 @@ function draw() {
     for(i=0;i<current_bees.length;i++){
         if((x > xbees[i] && x < xbees[i]+40)&&(y > ybees[i] && y < ybees[i]+40)){
             // points -= 5;
-            updateScore(-5);
+            updateScore(-3);
             // console.log("una abeja -5. Puntos: "+points);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             clearInterval(drawer);
@@ -183,7 +197,7 @@ function draw() {
     for(i=0;i<current_fireflies.length;i++){
         if((x > xfireflies[i] && x < xfireflies[i]+40)&&(y > yfireflies[i] && y < yfireflies[i]+40)){
             // points += 50;
-            updateScore(50);
+            updateScore(8);
             // console.log("UNA PINCHI LUCIERNAGA!!! +50. puntos: "+points+" WOOOOOOO.");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             clearInterval(drawer);
@@ -259,21 +273,26 @@ function getRandomInt(xy, min, max) {
 }
 
 function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    clock = setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+    timer = duration;
+    displayClock = display;
+    clockTimer = setInterval(clock, 1000);
+}
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+function clock () {
+    minutes = parseInt(timer / 60, 10);
+    seconds = parseInt(timer % 60, 10);
 
-        display.textContent = minutes + ":" + seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        if (--timer < 0) {
-            alert('Se ha acabado el tiempo, mejor puntaje:' + miStorage.getItem('highest_score') + ' Puntaje actual:'+points)
-            clearInterval(clock);
-        }
-    }, 1000);
+    displayClock.textContent = minutes + ":" + seconds;
+
+    if (--timer < 0) {
+        clearInterval(clockTimer);
+        clearInterval(drawer);
+        clearTimeout(looper);
+        alert('Se ha acabado el tiempo, mejor puntaje:' + miStorage.getItem('highest_score') + ' Puntaje actual:'+points)
+    }
 }
 
 function timer() {
