@@ -25,8 +25,8 @@
         
     </section>
 
-    <section id="game" class="section hide" onclick="touch()">
-        <canvas id="myCanvas" width="720" height="1280"></canvas>
+    <section id="game" class="section hide">
+        <canvas id="myCanvas" width="720" height="1280" onclick="touch()"></canvas>
         <div id="div1">
             <span>
                 <span><img id="watch-icon" src="img/icon-watch.png" alt="Reloj"></span>
@@ -35,10 +35,13 @@
                 <span id="points">000</span>
             </span>
         </div>
-        <img src="img/frog.png " alt="Image" id="monkas">
+        <img src="img/frog.png " alt="Image" id="monkas" onclick="touch()">
         <button id="btn-0" onclick="goHome()">HOME</button>
         <div id="pause-div">
             <img id="pause-button" src="img/icon-pause.png" alt="Pause" onclick="pause()">
+        </div>
+        <div id="resume-div">
+            <img id="resume-button" class="hide" src="img/icon-replay.png" alt="Resume" onclick="resume()">
         </div>
     </section>
 
@@ -57,6 +60,7 @@
             <img src="img/rule3.png">
         </div>
     </section>
+        
 </body>
 <script>
     rotate("monkas",20);
